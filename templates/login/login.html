@@ -1,14 +1,14 @@
-{% load static %}
 <!DOCTYPE html>
+{% load static %}
 <html>
 <head>
     <title>coterie</title>
-     <link href="{% static 'css/style2.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/login.css' %}" rel="stylesheet"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 <body>
 
 <div class="logo">
-    <img src="C:\Users\sarangpc\mini project\Group 184.png">
+    <img src={% static "../media/icon.png" %}>
 </div>
 <div class="menu-bar">
     <ul>
@@ -20,11 +20,9 @@
 </div>
 <div class="login-form">
     <h1>Login Form</h1>
-    <form action="/login/?{{ request.META.QUERY_STRING }}" method="post">
-
-        {% csrf_token %}
+    <form action="#" method="post">
         <p>User Name</p>
-        <input type="text" name="email" placeholder="User Name">
+        <input type="text" name="user" placeholder="User Name">
         <p>Password</p>
         <input type="passwrod" name="password" placeholder="Password">
         <button type="submit">SIGN IN</button>

@@ -140,7 +140,7 @@ def signup(request):
     # context1['invite'] = get_item_from_url(next_loc, 'invite')
     context1['redirect_uri'] = settings.DEPLOYMENT_URL + '/google-login'
     context1['GOOGLE_CLIENT_ID'] = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
-    return render(request, template_name="signup.html", context=context1)
+    return render(request, template_name="login/register.html", context=context1)
 
 
 @login_required
