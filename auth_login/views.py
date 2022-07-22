@@ -93,7 +93,7 @@ def signin(request):
     context1['GOOGLE_CLIENT_ID'] = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
     context1['google_redirect_uri'] = settings.DEPLOYMENT_URL + '/google-login'
 
-    return render(request, template_name='login.html', context=context1)
+    return render(request, template_name='login/login.html', context=context1)
 
 
 @ensure_csrf_cookie

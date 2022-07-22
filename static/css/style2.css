@@ -1,0 +1,114 @@
+*
+{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body
+{
+    background-color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: medium;
+}
+
+.logo img
+{
+    position: absolute;
+    margin-top: 1px;
+    margin-left: 10px;
+    width: 300px;
+    height: 85px;
+}
+.menu-bar
+{
+    background-color: crimson;
+    text-align: center;
+}
+.menu-bar ul
+{
+    display:inline-flex;
+    list-style: none;
+    color: white;
+}
+.menu-bar ul li
+{
+    width: 120px;
+    margin: 15px;
+    padding: 15px;
+}
+.menu-bar ul li a
+{
+    display: flex;
+    text-decoration: none;
+    color: white;
+    font-size: small;
+}
+.active, .menu-bar ul li:hover
+{
+    background-color: lightcoral;
+    border-radius: 3px;
+}
+.menu-bar .fa
+{
+    margin-right: 8px;
+
+}
+
+
+
+.login-form
+{
+    max-width: 300px;
+    height: 400px;
+background: #E96B6B;
+box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 3px 13px 8px rgba(154, 26, 26, 0.25);
+border-radius: 44px;
+float: right;
+}
+.login-form h1
+{
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 40px 0;
+}
+.login-form p
+{
+    font-size: 20px;
+    margin: 15px 0;
+    color: beige;
+    text-align: left;
+}
+.login-form input
+{
+    font-size: 12px;
+    width: 100%;
+    padding: 15px 10px;
+    border: 0;
+    outline: none;
+    border-radius: 5px;
+}
+.login-form
+{
+    font-size: 18px;
+    font-weight: bold;
+    margin: 20px;
+    padding: 10px 15px;
+    width: 50%;
+    border-radius: 5px;
+}
+.content
+{
+    align-items: center;
+    display: contents;
+    margin-top: 500px;
+}
+
+.content h4
+{
+    color: blue;
+}
+.content p
+{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
