@@ -1,15 +1,17 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views import View
 from .models import Chat
-from .forms import MessageForm
+# from .forms import MessageForm
 from django.db.models import Count
+
 
 class DialogsView(View):
     def get(self, request):
         chats = Chat.objects.annotate(latest_message_time=Max('message__pub_date'))
 
         return render(request, 'users/dialogs.html', {'user_profile': request.user, 'chats': chats})
+
 
 class MessagesView(View):
     def get(self, request, chat_id):
@@ -41,9 +43,11 @@ class MessagesView(View):
             message.save()
         return redirect(reverse('messages', kwargs={'chat_id': chat_id}))
 
+
 class CreateDialogView(View):
     def get(self, request, user_id):
-        chats = Chat.objects.filter(members__in=[request.user.id, user_id], type=Chat.DIALOG).annotate(c=Count('members')).filter(c=2)
+        chats = Chat.objects.filter(members__in=[request.user.id, user_id], type=Chat.DIALOG).annotate(
+            c=Count('members')).filter(c=2)
         if user_id != request.user.id:
             if chats.count() == 0:
                 chat = Chat.objects.create()
