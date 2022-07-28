@@ -7,4 +7,5 @@ router = DefaultRouter()
 
 urlpatterns = [
     path(r'', include(router.urls)),
+    path('about/', views.about),
 ]
