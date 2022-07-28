@@ -18,23 +18,29 @@
 
     </ul>
 </div>
-<div class="login-form">
-    <h1>Login Form</h1>
-    <form action="#" method="post">
-        <p>User Name</p>
-        <input type="text" name="user" placeholder="User Name">
-        <p>Password</p>
-        <input type="passwrod" name="password" placeholder="Password">
-        <button type="submit">SIGN IN</button>
-    </form>
-</div>
-<div class="content">
-    <h4>what we do?</h4>
-    <p>
-        People of similar interests or ambitions are connected and helped to create a community with them
+{% if not request.user.is_authenticated %}
+    <div class="login-form">
+        <h1>Login Form</h1>
+        <form action="/login/?{{ request.META.QUERY_STRING }}"
+              method="POST">
+            {% csrf_token %}
+            <p>User Name</p>
+            <input type="text" name="email" placeholder="User Name">
+            <p>Password</p>
+            <input type="passwrod" name="password" placeholder="Password">
+            <button type="submit">SIGN IN</button>
+        </form>
+    </div>
+    <div class="content">
+        <h4>what we do?</h4>
+        <p>
+            People of similar interests or ambitions are connected and helped to create a community with them
 
-    </p>
-</div>
+        </p>
+    </div>
+{% else %}
+    <h2>Hi, {{ request.user.username }}</h2>
+{% endif %}
 </body>
 </head>
 </html>

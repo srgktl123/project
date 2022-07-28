@@ -70,6 +70,10 @@ def get_client_ip(request):
     return ip
 
 
+def index(request):
+    return render(request, "login/login.html", )
+
+
 @ensure_csrf_cookie
 def signin(request):
     context1 = {}
@@ -101,9 +105,11 @@ def signup(request):
     context1 = {}
     if request.method == "POST":
         email = request.POST.get("email")
-        password = request.POST.get("password")
-        passwrd2 = request.POST.get("password retype")
-        username = request.POST.get("username", '')
+        password = request.POST.get("pass1")
+        passwrd2 = request.POST.get("pass2")
+        username = request.POST.get("username")
+        name = request.POST.get("name")
+        occupation = request.POST.get("occupation")
         logger.info(f"{email = } {password = } {passwrd2} {username = }")
         if not email:
             context1['pswderr'] = 'Email cannot be empty'
@@ -119,9 +125,11 @@ def signup(request):
                 try:
                     logger.info("everything is okey creating user ")
                     user = User.objects.create_user(email=email, password=password, username=username,
-                                                    first_name=username)
+                                                    first_name=name)
                     logger.info(f"created user {user.username} ")
                     token, _ = Tokens.objects.get_or_create(user=user)
+                    token.occupation = occupation
+                    token.save()
                     login(request, user, backend='django.contrib.auth.backends.ModelBackend')
                     redirect_location = request.GET.get('next', '/') + '?' + request.META['QUERY_STRING']
                     return HttpResponseRedirect(redirect_location)
@@ -148,70 +156,3 @@ def log_out(request):
     logout(request)
     url = '/?' + request.META['QUERY_STRING']
     return HttpResponseRedirect(url)
-
-
-def request_google(auth_code, redirect_uri):
-    data = {'code': auth_code,
-            'client_id': settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY,
-            'client_secret': settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET,
-            'redirect_uri': redirect_uri,
-            'grant_type': 'authorization_code'}
-    r = requests.post('https://oauth2.googleapis.com/token', data=data)
-    print(r.content.decode())
-    try:
-        logger.info('google auth_login ')
-        content = json.loads(r.content.decode())
-        token = content["access_token"]
-        return token
-    except Exception as e:
-        logger.exception('google auth_login fail')
-        logger.debug(r.content.decode())
-        return False
-
-
-def convert_google_token(token, client_id):
-    application = Application.objects.get(client_id=client_id)
-    data = {
-        'grant_type': 'convert_token',
-        'client_id': client_id,
-        'client_secret': application.client_secret,
-        'backend': 'google-oauth2',
-        'token': token
-    }
-    url = settings.DEPLOYMENT_URL + '/auth/social/convert-token'
-    r = requests.post(url, data=data)
-    try:
-        logger.info('google auth_login convert')
-        cont = json.loads(r.content.decode())
-        access_token = cont['access_token']
-        return access_token
-    except Exception as e:
-        logger.exception('google convert failed')
-        logger.debug(r.content.decode())
-        return False
-
-
-def Google_login(request):
-    state = request.GET.get('state', '/')
-    auth_code = request.GET.get('code')
-    redirect_uri = settings.DEPLOYMENT_URL + '/google-login'
-    next_loc = get_item_from_url(state, 'next', '/')
-    logger.info('next ' + next_loc)
-    invite_token = get_item_from_url(next_loc, 'invite')
-    client_id = get_client_id(next_loc)
-    logger.info('Recived client id ' + client_id)
-    token = request_google(auth_code, redirect_uri)
-    if token:
-        logger.info(' Token Success')
-        access_token = convert_google_token(token, client_id)
-        if access_token:
-            user = AccessToken.objects.get(token=access_token).user
-            login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-            try:
-
-                token_of_user, _ = Tokens.objects.get_or_create(user=user)
-            except Exception as e:
-                logger.error(e)
-                logger.exception('failed to create token')
-        return HttpResponseRedirect(next_loc)
-    return HttpResponseRedirect('/login/')

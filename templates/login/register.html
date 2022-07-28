@@ -17,33 +17,46 @@
                 <div class="heading">
                     <div class="title">REGISTRATION FORM</div>
                 </div>
-                <form action="#">
+                <form action="/signup/?{{ request.META.QUERY_STRING }}" method="POST">
                     <div class="user-details">
                         <div class="input-box">
-                            <span class="details">FIRSTNAME</span><input type="text" placeholder="Enter your first name"
-                                                                         required><br><br></div>
+                            <span class="details">USERNAME</span><input name="username" type="text"
+                                                                        placeholder="Enter your username"
+                                                                        required><br><br></div>
                         <div class="input-box">
-                            <span class="details">LASTNAME</span><input type="text" placeholder="Enter your last name"
-                                                                        required><br><br>
+                            <span class="details">NAME</span><input name="name" type="text"
+                                                                    placeholder="Enter your  name"
+                                                                    required><br><br>
                         </div>
 
-                        <div class="input-box"><span class="details">Date of Birth</span><input type="date"><br><br>
+                        <div class="input-box"><span class="details">Date of Birth</span><input name="dob"
+                                                                                                type="date"><br><br>
                         </div>
-                        <div class="input-box"><span class="details">E-MAIL</span><input type="email"
+                        <div class="input-box"><span class="details">E-MAIL</span><input type="email" name="email"
                                                                                          placeholder="Enter your email"
                                                                                          required><br><br></div>
                         <div class="input-box"><span class="details">OCCUPATION</span><input type="text"
+                                                                                             name="occupation"
                                                                                              placeholder="Enter your current occupation"><br><br>
                         </div>
 
                         <div class="input-box"><span class="details">AREA OF EXPERTISE</span><input type="text"
+                                                                                                    name="interest"
                                                                                                     placeholder="mention the field you are experienced in"><br><br>
+                        </div>
+                        <div class="input-box"><span class="details">Create Password</span><input type="text"
+                                                                                                  name="pass1"
+                                                                                                  placeholder="Enter a strong password"><br><br>
+                        </div>
+                        <div class="input-box"><span class="details">Re Type Password</span><input type="text"
+                                                                                                   name="pass2"
+                                                                                                   placeholder="retype password"><br><br>
                         </div>
                         {% csrf_token %}
                         <div class="gender-details">
-                            <input type="radio" name="gender" id="dot-1">
-                            <input type="radio" name="gender" id="dot-2">
-                            <input type="radio" name="gender" id="dot-3">
+                            <input type="radio" name="gender-m" id="dot-1">
+                            <input type="radio" name="gender-f" id="dot-2">
+                            <input type="radio" name="gender-o" id="dot-3">
                             <span class="gender-title">Gender</span>
                             <div class="category">
                                 <label for="dot-1">

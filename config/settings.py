@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'auth_login',
     'authentication',
     'home',
-    'chat',
+    # 'chat',
 ]
 
 MIDDLEWARE = [
