@@ -19,13 +19,13 @@
 
 .container {
     max-width: 700px;
-    /*position: absolute;*/
+    /position: absolute;/
     padding: 25px 30px;
     border-radius: 5px;
     align-content: center;
 
-    /*width: 1219px;*/
-    /*height: 721px;*/
+    /width: 1219px;/
+    /height: 721px;/
 
     background: rgba(233, 107, 107, 0.94);
     border-radius: 34px;
@@ -141,8 +141,13 @@ form .button input {
     background: darkolivegreen;
 }
 
+form .button input
+{
+    width: 100px;
+}
 form .button input:hover {
     background: grey;
+
 }
 
 @media (max-width: 584px) {
@@ -167,4 +172,11 @@ form .button input:hover {
     .user-details::-webkit-scrollbar {
         width: 0;
     }
+
+}
+.input-box .detailss
+{
+    height: 45px;
+    width: 300px;
+
 }
